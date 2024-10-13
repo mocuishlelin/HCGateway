@@ -96,51 +96,20 @@ const askForPermissions = async () => {
   const isInitialized = await initialize();
 
   const grantedPermissions = await requestPermission([
-    { accessType: 'read', recordType: 'ActiveCaloriesBurned' },
-    { accessType: 'read', recordType: 'BasalBodyTemperature' },
-    { accessType: 'read', recordType: 'BloodGlucose' },
-    { accessType: 'read', recordType: 'BloodPressure' },
-    { accessType: 'read', recordType: 'BasalMetabolicRate' },
-    { accessType: 'read', recordType: 'BodyFat' },
-    { accessType: 'read', recordType: 'BodyTemperature' },
-    { accessType: 'read', recordType: 'BoneMass' },
-    { accessType: 'read', recordType: 'CyclingPedalingCadence' },
-    { accessType: 'read', recordType: 'CervicalMucus' },
-    { accessType: 'read', recordType: 'ExerciseSession' },
-    { accessType: 'read', recordType: 'Distance' },
-    { accessType: 'read', recordType: 'ElevationGained' },
-    { accessType: 'read', recordType: 'FloorsClimbed' },
     { accessType: 'read', recordType: 'HeartRate' },
-    { accessType: 'read', recordType: 'Height' },
-    { accessType: 'read', recordType: 'Hydration' },
-    { accessType: 'read', recordType: 'LeanBodyMass' },
-    { accessType: 'read', recordType: 'MenstruationFlow' },
-    { accessType: 'read', recordType: 'MenstruationPeriod' },
-    { accessType: 'read', recordType: 'Nutrition' },
-    { accessType: 'read', recordType: 'OvulationTest' },
-    { accessType: 'read', recordType: 'OxygenSaturation' },
-    { accessType: 'read', recordType: 'Power' },
-    { accessType: 'read', recordType: 'RespiratoryRate' },
     { accessType: 'read', recordType: 'RestingHeartRate' },
     { accessType: 'read', recordType: 'SleepSession' },
-    { accessType: 'read', recordType: 'Speed' },
-    { accessType: 'read', recordType: 'Steps' },
-    { accessType: 'read', recordType: 'StepsCadence' },
-    { accessType: 'read', recordType: 'TotalCaloriesBurned' },
-    { accessType: 'read', recordType: 'Vo2Max' },
-    { accessType: 'read', recordType: 'Weight' },
-    { accessType: 'read', recordType: 'WheelchairPushes' },
   ]);
 
   console.log(grantedPermissions);
 
-  if (grantedPermissions.length < 34) {
-    Toast.show({
-      type: 'error',
-      text1: "Permissions not granted",
-      text2: "Please visit settings to grant all permissions."
-    })
-  }
+  // if (grantedPermissions.length < 34) {
+  //   Toast.show({
+  //     type: 'error',
+  //     text1: "Permissions not granted",
+  //     text2: "Please visit settings to grant all permissions."
+  //   })
+  // }
 };
 
 const sync = async () => {
@@ -155,7 +124,7 @@ const sync = async () => {
   await setPlain('lastSync', new Date().toISOString());
   lastSync = new Date().toISOString();
 
-  let recordTypes = ["ActiveCaloriesBurned", "BasalBodyTemperature", "BloodGlucose", "BloodPressure", "BasalMetabolicRate", "BodyFat", "BodyTemperature", "BoneMass", "CyclingPedalingCadence", "CervicalMucus", "ExerciseSession", "Distance", "ElevationGained", "FloorsClimbed", "HeartRate", "Height", "Hydration", "LeanBodyMass", "MenstruationFlow", "MenstruationPeriod", "Nutrition", "OvulationTest", "OxygenSaturation", "Power", "RespiratoryRate", "RestingHeartRate", "SleepSession", "Speed", "Steps", "StepsCadence", "TotalCaloriesBurned", "Vo2Max", "Weight", "WheelchairPushes"]; 
+  let recordTypes = ["HeartRate", "RestingHeartRate", "SleepSession"]; 
   
   for (let i = 0; i < recordTypes.length; i++) {
       let records = await readRecords(recordTypes[i],
@@ -170,7 +139,7 @@ const sync = async () => {
       console.log(recordTypes[i]);
       numRecords += records.length;
 
-      if (['SleepSession', 'Speed', 'HeartRate'].includes(recordTypes[i])) {
+      if (['SleepSession', 'HeartRate'].includes(recordTypes[i])) {
         console.log("INSIDE IF - ", recordTypes[i])
         for (let j=0; j<records.length; j++) {
           console.log("INSIDE FOR", j, recordTypes[i])
