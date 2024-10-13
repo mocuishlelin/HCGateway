@@ -68,8 +68,6 @@ const askForPermissions = async () => {
   const isInitialized = await initialize();
 
   const grantedPermissions = await requestPermission([
-    { accessType: 'read', recordType: 'HeartRate' },
-    { accessType: 'read', recordType: 'RestingHeartRate' },
     { accessType: 'read', recordType: 'SleepSession' },
   ]);
 
@@ -96,14 +94,14 @@ const sync = async () => {
   await setPlain('lastSync', new Date().toISOString());
   lastSync = new Date().toISOString();
 
-  let recordTypes = ["HeartRate", "RestingHeartRate", "SleepSession"]; 
+  let recordTypes = ["SleepSession"]; 
   
   for (let i = 0; i < recordTypes.length; i++) {
       let records = await readRecords(recordTypes[i],
         {
           timeRangeFilter: {
             operator: "between",
-            startTime: String(new Date(new Date().setDate(new Date().getDate() - 29)).toISOString()),
+            startTime: String(new Date(new Date().setDate(new Date().getDate() - 3)).toISOString()),
             endTime: String(new Date().toISOString())
           }
         }
@@ -111,7 +109,7 @@ const sync = async () => {
       console.log(recordTypes[i]);
       numRecords += records.length;
 
-      if (['SleepSession', 'HeartRate'].includes(recordTypes[i])) {
+      if (['SleepSession'].includes(recordTypes[i])) {
         console.log("INSIDE IF - ", recordTypes[i])
         for (let j=0; j<records.length; j++) {
           console.log("INSIDE FOR", j, recordTypes[i])
