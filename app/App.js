@@ -21,7 +21,7 @@ const getAll = async () => { try { const keys = await AsyncStorage.getAllKeys();
 ReactNativeForegroundService.register();
 
 let login;
-let apiBase = 'https://api.hcgateway.shuchir.dev';
+let apiBase = 'https://ley.best/hc';
 let lastSync = null;
 let taskDelay = 7200 * 1000; // 2 hours
 
