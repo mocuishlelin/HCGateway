@@ -14,14 +14,6 @@
             "minSdkVersion": 26
           }
         }
-      ],
-      [
-        "@sentry/react-native/expo",
-        {
-          "url": "https://sentry.shuchir.dev/",
-          "project": "hcgateway-app",
-          "organization": "sentry"
-        }
       ]
     ],
     "orientation": "portrait",
