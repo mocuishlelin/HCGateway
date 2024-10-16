@@ -94,7 +94,7 @@ const sync = async () => {
   await setPlain('lastSync', new Date().toISOString());
   lastSync = new Date().toISOString();
 
-  let recordTypes = ["SleepSession"]; 
+  let recordTypes = ["SleepSession","Steps"]; 
   
   for (let i = 0; i < recordTypes.length; i++) {
       let records = await readRecords(recordTypes[i],
